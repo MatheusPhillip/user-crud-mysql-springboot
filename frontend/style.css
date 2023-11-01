@@ -13,7 +13,31 @@ body{
     background-color: cadetblue;
 }
 
-.box, form{
+.parentElement {
+    display: flex;
+    width: 80%;
+    justify-content: center;
+}
+
+.userRegistrationHeader{
+    display: flex;
+    justify-content: center;
+}
+
+.childElement {
+    text-align: center;
+    flex: 1;
+    border: 2px solid blueviolet;
+    margin: 10px;
+    align-self: center;
+}
+  
+.childElement:first-child {
+    margin-right: 50px;
+}
+  
+
+.form{
     gap: 20px;
     display: flex;
     flex-direction: column;
@@ -29,6 +53,52 @@ input{
 }
 
 button{
-    width: 150px;
+    width: 100px;
     height: 25px;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+li {
+    display: flex;
+    justify-content: space-between;
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+
+  
+  
+
+/* Estilo para o botão de deletar */
+li button.delete-button {
+    background-color: #FF0000;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    padding: 5px 10px;
+    border-radius: 3px;
+    font-weight: bold;
+}
+
+li button.delete-button:hover {
+    background-color: #CC0000;
+}
+
+/* Estilo para o texto do usuário */
+li span {
+    font-size: 16px;
+}
+
+/* Estilo para o nome do usuário */
+li span.name {
+    font-weight: bold;
+    margin-right: 10px;
 }
