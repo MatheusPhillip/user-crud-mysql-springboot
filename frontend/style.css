@@ -3,26 +3,34 @@
     padding: 0;
 }
 
-h1{
+body{
+    background-color: cadetblue;
+}
+.userRegistrationHeader{
     margin-top: 40px;
     margin-bottom: 40px;
     color: aliceblue;
+    display: flex;
+    justify-content: center;
 }
 
-body{
-    background-color: cadetblue;
+.userListHeader{
+    margin-top: 40px;
+    margin-bottom: 40px;
+    color: aliceblue;
+    display: flex;
+    justify-content: center;
 }
 
 .parentElement {
     display: flex;
-    width: 80%;
     justify-content: center;
+    border: 2px solid blueviolet;
+    margin-left: 20%;
+    margin-right: 20%;
+
 }
 
-.userRegistrationHeader{
-    display: flex;
-    justify-content: center;
-}
 
 .childElement {
     text-align: center;
