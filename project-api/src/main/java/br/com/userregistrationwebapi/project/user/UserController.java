@@ -22,27 +22,33 @@ public class UserController{
     @Autowired
     private IUser dao;
 
+    private UserService userService;
+
+    public UserController(UserService userService){
+        this.userService = userService;
+    }
+
     @GetMapping
     public ResponseEntity<List<User>> getUserList(){
-        List<User> userList = dao.findAll();
+        List<User> userList = userService.getUserList();
         return ResponseEntity.status(200).body(userList);
     }
     
     @PostMapping
     public ResponseEntity<User> createUser(@RequestBody User user) {
-    	User newUser = dao.save(user);
+    	User newUser = userService.createUser(user);
     	return ResponseEntity.status(201).body(newUser);
     }
     
     @PutMapping
     public ResponseEntity<User> updateUser(@RequestBody User user) {
-    	User updatedUser = dao.save(user);
-    	return ResponseEntity.status(201).body(updatedUser);
+    	User updatedUser = userService.updateUser(user);
+    	return ResponseEntity.status(200).body(updatedUser);
     }
     
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteUserById(@PathVariable Integer id) {
-    	dao.deleteById(id);
+    	userService.deleteUserById(id);
     	return ResponseEntity.status(204).build();
     }
 }
