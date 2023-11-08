@@ -1,3 +1,4 @@
+
 const form = document.querySelector("form");
 
 const inputFirstName = document.querySelector(".firstName");
@@ -30,38 +31,53 @@ function getUserlist(){
   fetch("http://localhost:8080/users")
     .then((response) => response.json())
     .then((data) => {
-      data.forEach((user) => {
-        const userItem = document.createElement("li");
-        userItem.innerHTML = `
-                    <span class="name">${user.firstName}</span>
-                    <span>${user.email}</span>
-                    <button class="delete-button">Delete</button>
-                `;
-        userList.appendChild(userItem);
+      if(listIsEmpty(data)){
+        const emptyList = document.createElement("h2");
+        emptyList.innerHTML = `
+          <div class="userListHeader">
+            <h2>There is no users registered.</h2>
+          </div>
+        `;
+      }
+      else{
 
-        const deleteButton = userItem.querySelector(".delete-button");
-        deleteButton.addEventListener("click", function () {
-          fetch(`http://localhost:8080/users/${user.id}`, {
-            headers: {
+        data.forEach((user) => {
+          const userItem = document.createElement("li");
+          userItem.innerHTML = `
+          <span class="name">${user.firstName}</span>
+          <span>${user.email}</span>
+          <button class="delete-button">Delete</button>
+          `;
+          userList.appendChild(userItem);
+          
+          const deleteButton = userItem.querySelector(".delete-button");
+          deleteButton.addEventListener("click", function () {
+            fetch(`http://localhost:8080/users/${user.id}`, {
+              headers: {
               Accept: "application/json",
               "Content-Type": "application/json",
             },
             method: "DELETE",
             body: JSON.stringify(data),
           })
-            .then(function (res) {
-              console.log(res);
-              resetMainPage();
-            })
-            .catch(function (res) {
-              console.log(res);
-            });
+          .then(function (res) {
+            console.log(res);
+            resetMainPage();
+          })
+          .catch(function (res) {
+            console.log(res);
+          });
         });
       });
+    }
     })
     .catch((error) => {
       console.error("Search error:", error);
     });
+}
+
+function listIsEmpty(list){
+  return list == null
 }
 
 function resetFields() {

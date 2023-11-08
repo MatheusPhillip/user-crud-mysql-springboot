@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,27 +24,26 @@ public class UserController{
     private IUser dao;
 
     @GetMapping
-    public List<User> getUserList(){
+    public ResponseEntity<List<User>> getUserList(){
         List<User> userList = (List<User>) dao.findAll();
-        return userList;
+        return ResponseEntity.status(200).body(userList);
     }
     
     @PostMapping
-    public User createUser(@RequestBody User user) {
+    public ResponseEntity<User> createUser(@RequestBody User user) {
     	User newUser = dao.save(user);
-    	return newUser;
+    	return ResponseEntity.status(201).body(newUser);
     }
     
     @PutMapping
-    public User updateUser(@RequestBody User user) {
-    	User newUser = dao.save(user);
-    	return newUser;
+    public ResponseEntity<User> updateUser(@RequestBody User user) {
+    	User updatedUser = dao.save(user);
+    	return ResponseEntity.status(201).body(updatedUser);
     }
     
     @DeleteMapping("/{id}")
-    public Optional<User> deleteUserById(@PathVariable Integer id) {
-    	Optional<User> user = dao.findById(id);
+    public ResponseEntity<?> deleteUserById(@PathVariable Integer id) {
     	dao.deleteById(id);
-    	return user;
+    	return ResponseEntity.status(204).build();
     }
 }
