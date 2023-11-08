@@ -1,7 +1,6 @@
 package br.com.userregistrationwebapi.project.user;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -25,7 +24,7 @@ public class UserController{
 
     @GetMapping
     public ResponseEntity<List<User>> getUserList(){
-        List<User> userList = (List<User>) dao.findAll();
+        List<User> userList = dao.findAll();
         return ResponseEntity.status(200).body(userList);
     }
     
