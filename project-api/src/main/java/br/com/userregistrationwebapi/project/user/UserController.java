@@ -2,7 +2,7 @@ package br.com.userregistrationwebapi.project.user;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -18,9 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin("*")
 @RequestMapping("/users")
 public class UserController{
-    
-    @Autowired
-    private IUser dao;
 
     private UserService userService;
 
@@ -51,4 +48,15 @@ public class UserController{
     	userService.deleteUserById(id);
     	return ResponseEntity.status(204).build();
     }
+    @PostMapping("/login")
+    public ResponseEntity<User> validatePassword(@RequestBody User user){
+        Boolean passwordIsValid = userService.validatePassword(user);
+        if(!passwordIsValid){
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+        else{
+            return ResponseEntity.status(200).build();
+        }
+    }
+
 }
